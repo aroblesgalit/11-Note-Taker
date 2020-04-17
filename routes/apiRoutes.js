@@ -1,28 +1,31 @@
 var db = require("../db/db");
-const { v4: uuidv4 } = require("uuid");
+// const { v4: uuidv4 } = require("uuid");
+const store = require("../db/store");
 
 module.exports = function(app) {
 
   app.get("/api/notes", function(req, res) {
-    res.json(db);
+    store
+      .getNotes()
+      .then(notes => res.json(notes))
+      .catch(err => res.status(500).json(err));
   });
 
   app.post("/api/notes", function(req, res) {
-      req.body.id = uuidv4();
-      db.push(req.body);
-      res.json(true);
+    store
+      .addNotes(req.body)
+      .then((note) => res.json(note))
+      .catch(err => res.status(500).json(err));
   });
 
   app.delete("/api/notes/:id", function(req, res) {
-    var deleteNoteId = req.params.id;
-    for (var i = 0; i < db.length; i++) {
-      var note = db[i];
-      if (note.id === deleteNoteId) {
-        db.splice(i, 1); 
-      }
-    }
-    // res.end("Deleted note: \n" + JSON.stringify(deleteNoteId, null, 4));
-    res.json(db);
+    const deleteID = req.params.id;
+
+    store
+      .deleteNote(deleteID)
+      .then(res.status(200).json("Finished deleting."))
+      .catch(err => res.status(500).json(err));
+  
   })
 
 };
