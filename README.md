@@ -46,4 +46,10 @@ Application should allow users to view previously saved notes.
 Application should allow users to delete previously saved notes.
 ```
 
-## Screenshots
+## Screenshots  
+![Home Screenshot](./public/assets/images/home-screenshot.jpg)  
+![Notes Screenshot](./public/assets/images/notes-screenshot.jpg)  
+
+
+## Animated GIF  
+![Note Taker GIF](./public/assets/images/note-taker.gif)

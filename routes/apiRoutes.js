@@ -14,7 +14,7 @@ module.exports = function(app) {
   app.post("/api/notes", function(req, res) {
     store
       .addNotes(req.body)
-      .then((note) => res.json(note))
+      .then(res.status(200).json("Added a note."))
       .catch(err => res.status(500).json(err));
   });
 
